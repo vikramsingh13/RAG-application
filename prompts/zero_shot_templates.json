@@ -1,0 +1,4 @@
+{
+    "text_qa_template": "Context information is below.\n---------------------\n{context_str}\n---------------------\nGiven the context information and not prior knowledge, answer the query with the recipe name, ingredients, directions, and nutrition facts.\nQuery: {query_str}\nAnswer:\n",
+    "text_refine_template": ""
+}
