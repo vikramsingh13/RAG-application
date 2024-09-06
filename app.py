@@ -15,7 +15,7 @@ client = OpenAI(
     api_key=os.getenv("OPENAI_API_KEY"),
 )
 
-def pdf_to_text(pdf_path):
+def pdf_to_text(pdf_path: str):
     try:
         # Limit the pages for now to avoid going over the GPT token limit
         max_pages = 25
@@ -41,7 +41,7 @@ def pdf_to_text(pdf_path):
         print("app.py::pdf_to_text: Error reading the pdf file.\n")
         return None
 
-def get_chat_response(prompt, model="gpt-3.5-turbo"):
+def get_chat_response(prompt: str, model: str = "gpt-3.5-turbo"):
     # Create a openai chat completion with the prompt and model
     chat_completion = client.chat.completions.create(
         messages=[
@@ -56,7 +56,7 @@ def get_chat_response(prompt, model="gpt-3.5-turbo"):
     # Return the message content from the first choice of the chat completion
     return chat_completion.choices[0].message.content
 
-def get_prompt_template(template_name='text_qa_template'):
+def get_prompt_template(template_name: str = 'text_qa_template'):
     try:
         # Read JSON data to get the prompt template
         with open("prompts/zero_shot_templates.json", 'r') as file:
@@ -69,7 +69,7 @@ def get_prompt_template(template_name='text_qa_template'):
         print("app.py::get_prompt_template: Error reading the prompt template json file.\n")
         return None
     
-def replace_template_placeholders(template, placeholders):
+def replace_template_placeholders(template: str, placeholders: dict):
     # Placeholders is a dictionary with the placeholder name as the key and the value to replace as the value
     for placeholder, value in placeholders.items():
         # Add {} around the placeholder to match the template format
@@ -79,7 +79,7 @@ def replace_template_placeholders(template, placeholders):
     return template
         
 
-def create_prompt_from_template_user_input_context(user_input, context_file_path):
+def create_prompt_from_template_user_input_context(user_input: str, context_file_path: str):
     # Get the prompt template from the JSON file
     # Using the text_qa_template as the default template
     prompt_template = get_prompt_template()
